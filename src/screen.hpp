@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <cmath>
 #include <vector>
+#include "camera.hpp"
 
 using std::vector;
 using std::sqrt;
@@ -19,7 +20,7 @@ class Screen {
         void pixel(float x, float y);
         void line(float x1, float y1, float x2, float y2);
         void show();
-        bool input();
+        bool input(Camera& camera);
         void clear();
 };
 
@@ -49,20 +50,6 @@ void Screen::show() {
 }
 
 
-bool Screen::input() {
-    while (SDL_PollEvent(&e)) {
-        if (e.type == SDL_QUIT) {
-            SDL_DestroyRenderer(renderer);
-            SDL_DestroyWindow(window);
-            SDL_Quit();
-            return false;
-            //exit(0);
-        }
-    }
-    return true;
-}
-
-
 void Screen::clear() {
     points.clear();
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
@@ -78,4 +65,32 @@ void Screen::line(float x1, float y1, float x2, float y2) {
 
     for (float i = 0; i < length; i++) 
         pixel(x1 + cos(angle) * i, y1 + sin(angle) * i);
+}
+
+
+bool Screen::input(Camera& camera) {
+    while (SDL_PollEvent(&e)) {
+        if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE) {
+            SDL_DestroyRenderer(renderer);
+            SDL_DestroyWindow(window);
+            SDL_Quit();
+            return false;
+            //exit(0);
+        } else if (e.type == SDL_KEYDOWN) {
+            switch (e.key.keysym.sym) {
+                case SDLK_w: camera.pos(2) -= 2.0; break; // forward / backward is Z axis
+                case SDLK_s: camera.pos(2) += 2.0; break;
+                case SDLK_a: camera.pos(0) += 2.0; break; // left / right is X axis 
+                case SDLK_d: camera.pos(0) -= 2.0; break;
+                case SDLK_q: camera.pos(1) += 2.0; break; // up / down is Y axis
+                case SDLK_e: camera.pos(1) -= 2.0; break;
+                case SDLK_UP: camera.orientation(2) += 0.1; break;
+                case SDLK_DOWN: camera.orientation(2) -= 0.1; break;
+                case SDLK_LEFT: camera.orientation(0) -= 0.1; break;
+                case SDLK_RIGHT: camera.orientation(0) += 0.1; break;
+                default: std::cout << "some other key pressed" << std::endl; break;
+            }
+        }
+    }
+    return true;
 }

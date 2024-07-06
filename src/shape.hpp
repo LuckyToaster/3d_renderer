@@ -36,7 +36,21 @@ namespace Shapes {
     const Line l73 = { p7, p3 };
     const Line l78 = { p7, p8 };
 
-    const vector<Line> lines = { l12, l15, l13, l57, l56, l62, l68, l84, l42, l43, l73, l78 };
+    const vector<Line> cube_lines = { l12, l15, l13, l57, l56, l62, l68, l84, l42, l43, l73, l78 };
+    const Shape cube { cube_lines };
 
-    const Shape cube{ lines };
+    const vec t1 = {100.0, 100.0, 100.0};
+    const vec t2 = {200.0, 100.0, 100.0};
+    const vec t3 = {100.0, 0.0, 100.0};
+    const vec t4 = {150.0, 200.0, 150.0};
+
+    const Line t12 = { t1, t2 };
+    const Line t23 = { t2, t3 };
+    const Line t13 = { t1, t3 };
+    const Line t14 = { t1, t4};
+    const Line t24 = { t2, t4};
+    const Line t34 = { t3, t4};
+
+    const vector<Line> pyramid_lines = { t12, t23, t13, t14, t24, t34 };
+    const Shape pyramid = { pyramid_lines };
 }
