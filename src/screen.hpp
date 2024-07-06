@@ -1,6 +1,4 @@
 #include <SDL2/SDL.h>
-#include <cmath>
-#include <vector>
 #include "camera.hpp"
 
 using std::vector;
@@ -75,15 +73,14 @@ bool Screen::input(Camera& camera) {
             SDL_DestroyWindow(window);
             SDL_Quit();
             return false;
-            //exit(0);
         } else if (e.type == SDL_KEYDOWN) {
             switch (e.key.keysym.sym) {
-                case SDLK_w: camera.pos(2) -= 2.0; break; // forward / backward is Z axis
-                case SDLK_s: camera.pos(2) += 2.0; break;
-                case SDLK_a: camera.pos(0) += 2.0; break; // left / right is X axis 
-                case SDLK_d: camera.pos(0) -= 2.0; break;
-                case SDLK_q: camera.pos(1) += 2.0; break; // up / down is Y axis
-                case SDLK_e: camera.pos(1) -= 2.0; break;
+                case SDLK_w: camera.pos(2) -= 6.0; break; // forward / backward is Z axis
+                case SDLK_s: camera.pos(2) += 6.0; break;
+                case SDLK_a: camera.pos(0) += 6.0; break; // left / right is X axis 
+                case SDLK_d: camera.pos(0) -= 6.0; break;
+                case SDLK_q: camera.pos(1) += 6.0; break; // up / down is Y axis
+                case SDLK_e: camera.pos(1) -= 6.0; break;
                 case SDLK_UP: camera.orientation(2) += 0.1; break;
                 case SDLK_DOWN: camera.orientation(2) -= 0.1; break;
                 case SDLK_LEFT: camera.orientation(0) -= 0.1; break;

@@ -1,7 +1,3 @@
-#include <iostream>
-#include <cmath>
-#include <armadillo>
-
 using std::cerr;
 using std::endl;
 using std::cos;
@@ -64,6 +60,22 @@ mat rotateZ(mat m, double angle) {
 
 mat rotateXYZ(mat m, double x_angle, double y_angle, double z_angle) {
     return m * getXRotationMat(x_angle) * getYRotationMat(y_angle) * getZRotationMat(z_angle);
+}
+
+vec vecRotateX(vec v, double angle) {
+    return (v.t() * getXRotationMat(angle)).t();
+}
+
+vec vecRotateY(vec v, double angle) {
+    return (v.t() * getYRotationMat(angle)).t();
+}
+
+vec vecRotateZ(vec v, double angle) {
+    return (v.t() * getZRotationMat(angle)).t();
+}
+
+vec vecRotateXYZ(vec v, double x_angle, double y_angle, double z_angle) {
+    return (v.t() * getXRotationMat(x_angle) * getYRotationMat(y_angle) * getZRotationMat(z_angle)).t();
 }
 
 
