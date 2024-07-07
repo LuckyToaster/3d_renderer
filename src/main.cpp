@@ -32,9 +32,11 @@ int main() {
             screen.line(p1(0), p1(1), p2(0), p2(1));
         }
 
-        screen.show();
-        sleep_for(milliseconds(16)); // ~60hz
-        screen.clear();
+        //screen.show();
+        SDL_Delay(16);
+        //sleep_for(milliseconds(16)); // ~60hz
+        //screen.clear();
+
     } 
     return 0;
 }
