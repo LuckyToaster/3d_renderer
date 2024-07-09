@@ -1,5 +1,7 @@
 using std::vector;
+using glm::vec4;
 
+/*
 struct Line {
     vec p1;
     vec p2;
@@ -40,6 +42,7 @@ Shape Shape::getCube() {
     return cube;
 }
 
+
 Shape Shape::getPyramid() {
     vec t1 = {100.0, 100.0, 100.0};
     vec t2 = {200.0, 100.0, 100.0};
@@ -56,4 +59,62 @@ Shape Shape::getPyramid() {
     vector<Line> pyramid_lines = { t12, t23, t13, t14, t24, t34 };
     Shape pyramid = { pyramid_lines };
     return pyramid;
+}
+*/
+
+using glm::vec4;
+
+class Shape2 {
+    public:
+        vector<vec4> vertices; // each pair is a line
+        vector<vec3> projectedVertices;
+        Shape2(vector<glm::vec4>&& vertices_) : vertices(std::move(vertices_)) {
+            this->projectedVertices.reserve(vertices.size());
+        }
+        vector<GLfloat> getVerticesAsGLfloat();
+        static Shape2 getCube();
+};
+
+/*Shape2::Shape2(vector<glm::vec4>&& vertices_) : vertices(std::move(vertices_)) {
+    this->projectedVertices.reserve(vertices.size());
+}*/
+
+
+vector<GLfloat> Shape2::getProjectedVerticesAsGLfloat() {
+    vector<GLfloat> res; 
+    for (vec3 v : projectedVertices) {
+        res.push_back(v.x);
+        res.push_back(v.y);
+        res.push_back(v.z);
+    }
+}
+
+
+vector<GLfloat> Shape2::getVerticesAsGLfloat() {
+    vector<GLfloat> res;
+    for (vec4 v : vertices) {
+        res.push_back(v.x);
+        res.push_back(v.y);
+        res.push_back(v.z);
+    }
+    return std::move(res); // we move bc this way we just return a ptr and size
+}
+
+
+Shape2 Shape2::getCube() {
+    vector<vec4> vertices = {
+        vec4(100.0f, 100.0f, 100.0f, 1.0f), vec4(200.0f, 100.0f, 100.0f, 1.0f), // Line from p1 to p2
+        vec4(100.0f, 100.0f, 100.0f, 1.0f), vec4(100.0f, 100.0f, 200.0f, 1.0f), // Line from p1 to p5
+        vec4(100.0f, 100.0f, 100.0f, 1.0f), vec4(100.0f, 0.0f, 100.0f, 1.0f), // Line from p1 to p3
+        vec4(100.0f, 100.0f, 200.0f, 1.0f), vec4(100.0f, 0.0f,  200.0f, 1.0f), // Line from p5 to p7
+        vec4(100.0f, 100.0f, 200.0f, 1.0f), vec4(200.0f, 100.0f, 200.0f, 1.0f), // Line from p5 to p6
+        vec4(200.0f, 100.0f, 200.0f, 1.0f), vec4(200.0f, 100.0f, 100.0f, 1.0f), // Line from p6 to p2
+        vec4(200.0f, 100.0f, 200.0f, 1.0f), vec4(200.0f, 0.0f,  200.0f, 1.0f), // Line from p6 to p8
+        vec4(200.0f, 0.0f,  200.0f,  1.0f), vec4(200.0f, 0.0f,  100.0f, 1.0f), // Line from p8 to p4
+        vec4(200.0f, 0.0f,  100.0f,  1.0f), vec4(200.0f, 100.0f, 100.0f, 1.0f), // Line from p4 to p2
+        vec4(200.0f, 0.0f,  100.0f,  1.0f), vec4(100.0f, 0.0f,  100.0f, 1.0f), // Line from p4 to p3
+        vec4(100.0f, 0.0f,  200.0f,  1.0f), vec4(100.0f, 0.0f,  100.0f, 1.0f), // Line from p7 to p3
+        vec4(100.0f, 0.0f,  200.0f,  1.0f), vec4(200.0f, 0.0f,  200.0f, 1.0f), // Line from p7 to p8
+    };
+    return std::move(Shape2(std::move(vertices)));
 }

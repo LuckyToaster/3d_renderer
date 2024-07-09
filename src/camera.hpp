@@ -1,24 +1,17 @@
-using arma::vec;
+//using arma::vec;
+
+using glm::vec3;
+
+
 
 struct Camera {
-    vec pos;
-    vec orientation;
+    vec3 pos;
+    vec3 orientation;
 };
 
-void moveForward(Camera &camera, double distance) {
-    // Assuming orientation[0] is the yaw angle
-    camera.pos(0) += distance * cos(camera.orientation(0));
-    camera.pos(1) += distance * sin(camera.orientation(0));
-}
-
-// Function to strafe the camera left or right
+// Function to strafe the camera left or right ==> wtf?
 void strafe(Camera &camera, double distance) {
     // Assuming orientation[0] is the yaw angle
-    camera.pos(0) += distance * sin(camera.orientation(0));
-    camera.pos(1) -= distance * cos(camera.orientation(0));
-}
-
-// Function to change the camera's yaw (looking left or right)
-void turn(Camera &camera, double angle) {
-    camera.orientation(0) += angle;
+    camera.pos.x += distance * sin(camera.orientation.x);
+    camera.pos.y -= distance * cos(camera.orientation.x);
 }

@@ -3,7 +3,7 @@ CXXFLAGS = -Wall -Wextra -fpermissive
 TARGET = build/run
 SRCS = src/main.cpp
 #LIBS = -lncurses -larmadillo
-LIBS = -larmadillo -lSDL2 -lGL
+LIBS = -larmadillo -lSDL2 -lGL -I/usr/include/glm
 
 # Default target
 all: $(TARGET)
