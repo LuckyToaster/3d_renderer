@@ -87,6 +87,7 @@ vector<GLfloat> Shape2::getProjectedVerticesAsGLfloat() {
         res.push_back(v.y);
         res.push_back(v.z);
     }
+    return std::move(res);
 }
 
 

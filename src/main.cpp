@@ -42,7 +42,9 @@ int main() {
             
         }
 
-        screen.draw();
+        vector<GLfloat> projected = shape.getProjectedVerticesAsGLfloat();
+
+        screen.draw(projected);
         screen.update();
         sleep_for(milliseconds(16)); // ~60hz
         //SDL_Delay(16);
