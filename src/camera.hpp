@@ -1,17 +1,19 @@
-//using arma::vec;
-
 using glm::vec3;
 
-
-
-struct Camera {
-    vec3 pos;
-    vec3 orientation;
+class Camera {
+    public:
+        vec3 pos;
+        vec3 orientation;
+        static Camera getDefault();
+        void strafe(Camera& c, float distance);
 };
 
+Camera Camera::getDefault() {
+    return Camera{vec3(400.0, 200.0, 500.0), vec3(0.0, 0.0, 0.0)};
+}
+
 // Function to strafe the camera left or right ==> wtf?
-void strafe(Camera &camera, double distance) {
-    // Assuming orientation[0] is the yaw angle
-    camera.pos.x += distance * sin(camera.orientation.x);
-    camera.pos.y -= distance * cos(camera.orientation.x);
+void Camera::strafe(Camera& c, float distance) {
+    c.pos.x += distance * sin(c.orientation.x);
+    c.pos.y -= distance * cos(c.orientation.x);
 }

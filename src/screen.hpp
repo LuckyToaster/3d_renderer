@@ -1,7 +1,5 @@
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
 #include "camera.hpp"
-#include "shape.hpp"
 
 using std::vector;
 using std::sqrt;
@@ -48,7 +46,6 @@ Screen::Screen(const char* name, int width, int height) {
 
 void Screen::drawline(float x1, float y1, float x2, float y2) {
     GLfloat vertices[] = {x1, y1, 0, x2, y2, 0 };
-
     glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, vertices);
         glDrawArrays(GL_LINES, 0, 2); // draw line, first elem, n_elems
@@ -56,7 +53,7 @@ void Screen::drawline(float x1, float y1, float x2, float y2) {
 }
 
 
-void Screen::draw(vector<GLfloat> vertices) {
+void Screen::draw(vector<GLfloat>& vertices) {
     glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, vertices.data());
         glDrawArrays(GL_LINES, 0, vertices.size() / 3);
@@ -83,16 +80,16 @@ bool Screen::input(Camera& camera) {
             return false;
         } else if (e.type == SDL_KEYDOWN) {
             switch (e.key.keysym.sym) {
-                case SDLK_w: camera.pos.z -= 6.0; break; // forward / backward is Z axis
-                case SDLK_s: camera.pos.z += 6.0; break;
-                case SDLK_a: camera.pos.x += 6.0; break; // left / right is X axis 
-                case SDLK_d: camera.pos.x -= 6.0; break;
-                case SDLK_q: camera.pos.y += 6.0; break; // up / down is Y axis
-                case SDLK_e: camera.pos.y -= 6.0; break;
-                case SDLK_UP: camera.orientation.z += 0.1; break;
-                case SDLK_DOWN: camera.orientation.z -= 0.1; break;
-                case SDLK_LEFT: camera.orientation.x -= 0.1; break;
-                case SDLK_RIGHT: camera.orientation.x += 0.1; break;
+                case SDLK_w: camera.pos.z -= 9.0; break; // forward / backward is Z axis
+                case SDLK_s: camera.pos.z += 9.0; break;
+                case SDLK_a: camera.pos.x += 9.0; break; // left / right is X axis 
+                case SDLK_d: camera.pos.x -= 9.0; break;
+                case SDLK_q: camera.pos.y += 9.0; break; // up / down is Y axis
+                case SDLK_e: camera.pos.y -= 9.0; break;
+                case SDLK_UP: camera.orientation.z += 3.5; break;
+                case SDLK_DOWN: camera.orientation.z -= 3.5; break;
+                case SDLK_LEFT: camera.orientation.x -= 3.5; break;
+                case SDLK_RIGHT: camera.orientation.x += 3.5; break;
                 default: std::cout << "some other key pressed" << std::endl; break;
             }
         }

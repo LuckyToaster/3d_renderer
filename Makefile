@@ -1,9 +1,9 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -fpermissive
+CXXFLAGS = -Wall -Wextra -fpermissive -Wno-sign-compare
 TARGET = build/run
 SRCS = src/main.cpp
 #LIBS = -lncurses -larmadillo
-LIBS = -larmadillo -lSDL2 -lGL -I/usr/include/glm
+LIBS = -lSDL2 -lGL -I/usr/include/glm
 
 # Default target
 all: $(TARGET)
