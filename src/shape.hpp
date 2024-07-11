@@ -8,6 +8,7 @@ class Shape {
         vector<vec3> projected; // used to store the projected vertices
         vector<GLfloat> getProjectedAsGLfloat();
         vector<GLfloat> getVerticesAsGLfloat();
+        //void projectVertices();
         static Shape getCube();
         Shape(vector<glm::vec4>&& vertices_) : vertices(std::move(vertices_)) {
             this->projected.reserve(vertices.size());
@@ -15,6 +16,10 @@ class Shape {
         }
 };
 
+/*void Shape::projectVertices(Camera& c) {
+    for (auto i = 0; i < vertices.size(); i++)
+        projected[i] = project(vertices[i], c.pos, c.orientation, c.surface);
+}*/
 
 vector<GLfloat> Shape::getProjectedAsGLfloat() {
     vector<GLfloat> res; 

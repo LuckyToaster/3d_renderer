@@ -73,8 +73,8 @@ inline vec4 translate(vec4 point, float x, float y, float z) {
     return translate(mat4(1.0f), vec3(x, y, z)) * point;
 }
 
-
-vec3 project(vec4 p, vec3 cam, vec3 orient, vec3 surface) {
+__attribute__((always_inline))
+inline vec3 project(vec4 p, vec3 cam, vec3 orient, vec3 surface) {
     bool cam_is_zero = cam.x == 0.0f && cam.y == 0.0f && cam.z == 0.0f;
     bool orient_is_zero = orient.x == 0.0f && orient.y == 0.0f && orient.z == 0.0f;
 
