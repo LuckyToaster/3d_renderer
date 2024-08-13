@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -fpermissive -Wno-sign-compare
 TARGET = build/run
 SRCS = src/main.cpp
-LIBS = -lSDL2 -lGL -I/usr/include/glm -I./include ./include/glad.c
+LIBS = -lglfw -lGL -I/usr/include/glm -I./include ./include/glad.c
 
 # Default target
 all: $(TARGET)
